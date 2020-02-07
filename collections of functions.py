@@ -29,4 +29,5 @@ try:
 except Exception:
     print('Ошибка')
 ######
-######
+###### Работа со времнем
+print (time.strftime("%Y.%m.%d %H:%M:%S", time.localtime()))
