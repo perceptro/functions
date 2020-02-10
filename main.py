@@ -41,7 +41,8 @@ def getStructureTable(table_name_in_file, cursor, file_error, id_table_from_file
     temp_struct = []
     with open(path_file_temp_struct) as file:
         for line in file.readlines():
-            temp_struct.append(id_table_from_file + "|!!|table_name|!|" + table_schema + "." + table_name + "|!!|" + line.strip())
+            temp_struct.append(
+                id_table_from_file + "|!!|table_name|!|" + table_name + "|!!|table_schema|!|" + table_schema + "|!!|" + line.strip())
     ###
 
     ###
@@ -86,6 +87,8 @@ path_tables_resource = path_tables_resource + "\\" + date_now + "  SS_" + str(nu
 
 file_name_error = path_log + "\\" + date_now + "  SS_" + str(number_SS) + " error.txt"
 file_error = open(file_name_error, "w")
+file_name_warning = path_log + "\\" + date_now + "  SS_" + str(number_SS) + " warning.txt"
+file_warning = open(file_name_warning, "w")
 file_name_struct = path_tables_resource + " struct.txt"
 file_struct = open(file_name_struct, "w")
 
@@ -94,7 +97,8 @@ cursor = 1
 #################################### Get the structure of each table from the list_tables
 list_tables_structure = []
 for table in list_tables:
-    list_tables_structure.append(getStructureTable(table, cursor, file_error, "row_from_table_list|!|" + str(id_row_from_file)))
+    list_tables_structure.append(
+        getStructureTable(table, cursor, file_error, "row_from_table_list|!|" + str(id_row_from_file)))
     id_row_from_file = id_row_from_file + 1
     # break
 # my_print(list_tables_structure)
@@ -108,6 +112,6 @@ file_struct.close()
 
 import pak_fillExcel
 
-pak_fillExcel.constructorFillExcel(file_error, file_name_struct, date_now, number_SS)
+pak_fillExcel.constructorFillExcel(file_error, file_name_struct, date_now, number_SS, file_warning)
 
 file_error.close()
